@@ -5,6 +5,7 @@
 package br.com.utfpr.proj.projespjava;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -43,6 +44,8 @@ public class Cadastro extends javax.swing.JFrame {
         btnPesquisar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        scrTabelaPessoa = new javax.swing.JScrollPane();
+        tabPessoa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -100,59 +103,97 @@ public class Cadastro extends javax.swing.JFrame {
             }
         });
 
+        tabPessoa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "CPF", "Nome"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabPessoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabPessoaMouseClicked(evt);
+            }
+        });
+        scrTabelaPessoa.setViewportView(tabPessoa);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLimpar)
-                .addGap(31, 31, 31)
-                .addComponent(btnSair)
-                .addGap(32, 32, 32))
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnInserir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnPesquisar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAlterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExcluir))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblNome)
-                            .addComponent(lblCPF))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txfCPF)
-                            .addComponent(txfNome, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(btnLimpar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(410, 410, 410)
+                            .addComponent(btnSair))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(30, 30, 30)
+                            .addComponent(scrTabelaPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(16, 16, 16)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblNome)
+                                .addComponent(lblCPF))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnInserir)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnPesquisar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnAlterar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnExcluir))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txfNome)
+                                    .addComponent(txfCPF))))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCPF)
                     .addComponent(txfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
                     .addComponent(txfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLimpar)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInserir)
                     .addComponent(btnPesquisar)
                     .addComponent(btnAlterar)
                     .addComponent(btnExcluir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLimpar)
-                    .addComponent(btnSair))
-                .addGap(54, 54, 54))
+                .addGap(33, 33, 33)
+                .addComponent(scrTabelaPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(btnSair)
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -172,6 +213,7 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         inserirPessoa();
+        atualizaTabela();
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -180,12 +222,31 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         alterarPessoa();
+        atualizaTabela();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         excluirPessoa();
+        atualizaTabela();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    private void tabPessoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPessoaMouseClicked
+        selecionaPessoa();
+    }//GEN-LAST:event_tabPessoaMouseClicked
+
+    public void atualizaTabela(){
+        // Recupera o objeto TableModel da tabela para que possamos trabalhar os dados
+        DefaultTableModel modelo = (DefaultTableModel) tabPessoa.getModel();
+        
+        int posicaoLinha = 0;
+        modelo.setRowCount(posicaoLinha);
+        
+        for (Pessoa p : repository.getBd()) {
+            modelo.insertRow(posicaoLinha, new Object[]{ p.getCpf(), p.getNome() });
+            posicaoLinha++;
+        }
+    }
+    
     public void limpar() {
         txfCPF.setText("");
         txfNome.setText("");
@@ -263,6 +324,22 @@ public class Cadastro extends javax.swing.JFrame {
         }
     }
     
+    public void selecionaPessoa() {
+        String saida = "";
+        
+        int posicaoLinha = tabPessoa.getSelectedRow();
+        
+        for (int coluna = 0; coluna < tabPessoa.getColumnCount(); coluna++) {
+            saida += tabPessoa.getModel().getValueAt(posicaoLinha, coluna).toString();
+            
+            if (coluna + 1 < tabPessoa.getColumnCount()) {
+                saida += "\n";
+            }
+        }
+        
+        JOptionPane.showMessageDialog(null, "Dados: \n" + saida, "Dados Pessoa", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
     public static Cadastro criaCadastro(){
         if (cadastroPessoa == null) {
             cadastroPessoa = new Cadastro();
@@ -314,6 +391,8 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JButton btnSair;
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JScrollPane scrTabelaPessoa;
+    private javax.swing.JTable tabPessoa;
     private javax.swing.JTextField txfCPF;
     private javax.swing.JTextField txfNome;
     // End of variables declaration//GEN-END:variables
