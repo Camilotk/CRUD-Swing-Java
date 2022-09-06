@@ -14,13 +14,15 @@ public class Cadastro extends javax.swing.JFrame {
     
     private RepositoryPessoa repository = new RepositoryPessoa();
     private Pessoa pessoa = new Pessoa();
+    private static Cadastro cadastroPessoa;
     
     /**
      * Creates new form Cadastro
      */
-    public Cadastro() {
+    private Cadastro() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +44,7 @@ public class Cadastro extends javax.swing.JFrame {
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblNome.setFont(new java.awt.Font("Fira Sans", 1, 14)); // NOI18N
         lblNome.setText("Nome:");
@@ -259,6 +261,13 @@ public class Cadastro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cadastro não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
             txfCPF.requestFocus();
         }
+    }
+    
+    public static Cadastro criaCadastro(){
+        if (cadastroPessoa == null) {
+            cadastroPessoa = new Cadastro();
+        }
+        return cadastroPessoa;
     }
     
     /**
